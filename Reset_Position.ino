@@ -1,11 +1,8 @@
 //========================= RESET STEPPER POSITION =========================
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
 void reset() {
-  
+//---------- motor 1 minus ----------
+ 
   while(RelativePosition1 > 0){
     switch(StepNumber1){
           case 0:
@@ -40,9 +37,12 @@ void reset() {
     RelativePosition1--;
     delay(3);
   }
+ 
 
 
 
+//----------Motor 1 plus----------
+ 
   while(RelativePosition1 < 0){
     switch(StepNumber1){
           case 0:
@@ -83,10 +83,12 @@ void reset() {
   digitalWrite(STEPPER1_PIN_2, LOW);
   digitalWrite(STEPPER1_PIN_3, LOW);
   digitalWrite(STEPPER1_PIN_4, LOW);
+ 
 
 
 
-
+//----------Motor 2 minus----------
+ 
   while(RelativePosition2 > 0){
     switch(StepNumber2){
           case 0:
@@ -121,9 +123,12 @@ void reset() {
     RelativePosition2--;
     delay(3);
   }
+ 
 
 
 
+//----------Motor 2 plus----------
+ 
   while(RelativePosition2 < 0){
     switch(StepNumber2){
           case 0:
@@ -166,4 +171,5 @@ void reset() {
   digitalWrite(STEPPER2_PIN_4, LOW);
 }
 
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ 
+ 

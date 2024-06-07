@@ -3,8 +3,21 @@
 //   - tap
 //   - actual movement
 //===================================================================
+// Based On Code Written By Nikodem Bartnik - nikodembartnik.pl
+//-------------------------------------------------------------------
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// Stepper Operations
+// 1 right off
+// 2 right on
+// 3 left off
+// 4 left on
+// 5 both off
+// 6 both on
+// 7 right off, left on
+// 8 right on, left off
+
+
 //----------TAP----------
 
 void tap(int tapOperation){
@@ -15,7 +28,7 @@ void tap(int tapOperation){
       movement (1);
       movement (2);
     break;
-    case 2:
+    case 2:  //Tap Right
       movement (2);
       movement (1);
     break;
@@ -23,7 +36,7 @@ void tap(int tapOperation){
       movement (3);
       movement (4);
     break;
-    case 4:
+    case 4:  //Tap Left
       movement (4);
       movement (3);
     break;
@@ -31,7 +44,7 @@ void tap(int tapOperation){
       movement (5);
       movement (6);
     break;
-    case 6:
+    case 6:  //Tap Both
       movement (6);
       movement (5);
     break;
@@ -45,16 +58,16 @@ void tap(int tapOperation){
     break;
   }
 }
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ 
 
 
-//---------- ACTUAL MOVEMENT CONTROLLER ----------
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//---------- MOVEMENT CONTROLLER ----------
+ 
 
 void movement(int Operation) {
-  CurrentStep = 0;
 
-  while (CurrentStep < Rotation) {
+  for (int Step = 0; Step < Rotation; Step++) {
+    
            //freeze
       if (Operation == 0) {
           digitalWrite(STEPPER1_PIN_1, LOW);
@@ -251,8 +264,6 @@ void movement(int Operation) {
     if (SwitchState == false && ProfileRecorderMode == 0) {
       delay(Delay);
     }
-    
-    CurrentStep++;
     delay(3);
   }
   
@@ -260,10 +271,10 @@ void movement(int Operation) {
   digitalWrite(STEPPER1_PIN_2, LOW);
   digitalWrite(STEPPER1_PIN_3, LOW);
   digitalWrite(STEPPER1_PIN_4, LOW);
-
+  
   digitalWrite(STEPPER2_PIN_1, LOW);
   digitalWrite(STEPPER2_PIN_2, LOW);
   digitalWrite(STEPPER2_PIN_3, LOW);
   digitalWrite(STEPPER2_PIN_4, LOW);
 }
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ 
