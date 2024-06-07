@@ -52,19 +52,19 @@ void loop() {
  
 
 //this delay breaks the loop as soon as the process is stopped
-void ActiveDelay(int MaxDelay) {
-  StartTime1 = millis();
-  while (millis() - StartTime1 <= MaxDelay) {
-    if (interruptAutomation() == true) {break;}
+void ActiveDelay(unsigned long  MaxDelay) {
+  unsigned long startTime = millis();
+  while (( millis() - startTime <= MaxDelay ) && interruptAutomation() == false) {
+    delay(1);
   }
 }
 
 
 //StartAt() waits for a specific time in microseconds before continuing the program
 
-void StartAt(long TimeStamp) {
-  while(micros() - ProfileStartTime < TimeStamp){
-    if (interruptAutomation() == true) {break;}
+void StartAt(unsigned long TimeStamp) {
+  while((micros() - ProfileStartTime < TimeStamp) && interruptAutomation() == false){
+    delay(1);
   }
 }
 

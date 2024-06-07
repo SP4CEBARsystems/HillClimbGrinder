@@ -458,16 +458,30 @@ movement(1);
     case 12:
     break;
 
-  //
+  //hillclimb racing arcade grinder
     case 13:
+    while( interruptAutomation() == false ){
+        ActiveDelay( 500 );
+        movement   ( 6 );  //both on
+        ActiveDelay( 500 );
+        movement   ( 3 );  //left off
+        ActiveDelay( 500 );
+        movement   ( 1 );  //right off
+        ActiveDelay( 500 );
+        movement   ( 2 );  //right on
+        ActiveDelay( 500 );
+        movement   ( 1 );  //right off
+    }
     break;
 
   //
     case 14:
+    recordArray();
     break;
 
   //
     case 15:
+    playArray();
     break;
 
   //
@@ -536,7 +550,7 @@ movement(1);
       SoundGenerator();
     break;
 
-  //Tetris
+  //Tetris theme
     case 31:
       while(SwitchState == true) {
         playSound(2);

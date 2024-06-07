@@ -40,6 +40,7 @@ void ButtonRead () {
 
 bool interruptAutomation() {
   ButtonVal = analogRead(ReadButtons);
+  Serial.println(ButtonVal);
   //Serial.println(ButtonVal);
   if (ButtonVal >= 800 && ButtonVal < 900) {
     SwitchState = false;
@@ -55,6 +56,7 @@ bool interruptAutomation() {
 bool interruptAutomationF() {
   ButtonVal = analogRead(ReadButtons);
   //Serial.println(ButtonVal);
+  
   if (ButtonVal >= 800 && ButtonVal < 900) {
     if (InterruptTime > 10) {
       InterruptTime = 0;
@@ -167,13 +169,14 @@ void userInput() {
 */
 
 //----------Profile Potentiometer---------- (selects profile)
-  if (ProfilePot != (int)((analogRead(Profile))/102.4) && abs(analogRead(Profile) - RawProfilePot) > 64) {  //noise barrier
+  if (ProfilePot != int(analogRead(Profile)/102.4) && abs(analogRead(Profile) - RawProfilePot) > 64) {  //noise barrier
     RawProfilePot = analogRead(Profile);
-    ProfilePot = (analogRead(Profile))/102.4;
+    ProfilePot = int(RawProfilePot/102.4);
     Pot1Changed = 1;
     Pot2Changed = 0;
     ConstantPot1Duration = 0;
     ConstantPot2Duration = 0;
+    Serial.println(ProfilePot);
 
     switch(ProfilePot) {
       case 1:
@@ -277,16 +280,17 @@ void userInput() {
   }
    
 //----------Stepper Speed Potentiometer---------- (Sets the speed of the stepper in the setup menu)
-  if (SpeedPot != (analogRead(Speed) / 32) && (ConstantPot1Duration == 0 || ConstantPot1Duration > 150) && abs(analogRead(Speed) - RawSpeedPot) > 64) { //Pin has a ton of noise -> Mega Noise barrier, true if Pot has changed.  Bug-Memorial: it was quoted out -> {
+  if (SpeedPot != int(analogRead(Speed) / 400) && (ConstantPot1Duration == 0 || ConstantPot1Duration > 150) && abs(analogRead(Speed) - RawSpeedPot) > 64) { //Pin has a ton of noise -> Mega Noise barrier, true if Pot has changed.  Bug-Memorial: it was quoted out -> {
     RawSpeedPot = analogRead(Speed);
-    SpeedPot = analogRead(Speed) / 32;
-    Delay = pow(2,map(SpeedPot,0,31,-7,7));
+    SpeedPot = int(RawSpeedPot / 400);
+    int SpeedPot2 = int(RawSpeedPot / 32);
+    Delay = pow(2,map(SpeedPot2,0,31,-7,7));
     Pot2Changed = 1;
     Pot1Changed = 0;
     ConstantPot2Duration = 0;
     ConstantPot1Duration = 0;
     //-((Delay+1)*8-1)+255
-    analogWrite(RedLight, pow(2,map(SpeedPot,0,31,8,0)) - 1);
+    analogWrite(RedLight, pow(2,map(SpeedPot2,0,31,8,0)) - 1);
     analogWrite(GreenLight, 0);
     analogWrite(BlueLight, 0);
   }
